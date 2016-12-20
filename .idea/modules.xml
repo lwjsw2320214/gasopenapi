@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/gasopenapi.iml" filepath="$PROJECT_DIR$/gasopenapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gasopen-api.iml" filepath="$PROJECT_DIR$/gasopen-api.iml" />
+      <module fileurl="file://E:/Onlineretailers/onlineretailers.iml" filepath="E:/Onlineretailers/onlineretailers.iml" />
     </modules>
   </component>
 </project>
