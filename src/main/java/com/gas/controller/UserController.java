@@ -1,7 +1,9 @@
 package com.gas.controller;
 
 import com.gas.entity.Result;
-import com.gas.entity.UserManage;
+import com.gas.entity.UserMember;
+import com.gas.service.UserMemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,24 +19,28 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+    @Autowired
+    UserMemberService service;
 
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     @ResponseBody
     public Object register(Model model, HttpServletRequest request, HttpServletResponse response)  throws  Exception {
 
+        long seconds =System.currentTimeMillis();
+        System.out.println(seconds);
         Result  result=new Result();
-        int i=1;
-        if (i==2){
-            UserManage userManage=new UserManage();
-            userManage.setId("1111");
-            userManage.setUserName("username");
-            userManage.setLoginToken("1111111111111");
-            result.setState(true);
-            result.setMessage("注册成功！");
-            result.setData(userManage);
-        }else{
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-        }
+
+        return  result;
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @ResponseBody
+    public  Object login(HttpServletRequest request,HttpServletResponse response,UserMember userMember){
+        Result result=new Result();
+        UserMember um=  service.memberLogin(userMember);
+        result.setSuccess(true);
+        result.setMessage("登录成功！");
+        result.setData(um);
         return  result;
     }
 

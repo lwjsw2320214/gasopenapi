@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gas.dao.IProtectionDao">
+    <sql id="fullNameColumns">
+        a.id as "id",
+        a.content AS "content",
+        a.remarks AS "remarks",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <sql id="joinTable">
+
+    </sql>
+
+    <select id="getAll" resultType="Protection">
+        SELECT
+        <include refid="fullNameColumns"/>
+        FROM  protection a
+        WHERE  a.del_flag='0'
+    </select>
+
+</mapper>

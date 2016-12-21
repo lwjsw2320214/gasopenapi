@@ -5,18 +5,18 @@ package com.gas.entity;
  */
 public class Result {
     //状态
-    private boolean state;
+    private boolean success;
     //消息
     private String message;
     //对象
     private Object data;
 
-    public boolean isState() {
-        return state;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getMessage() {
