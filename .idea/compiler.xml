@@ -8,13 +8,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gasopen-api" />
         <module name="gasopenapi" />
+        <module name="Onlineretailers" />
         <module name="onlineretailers" />
+        <module name="orc_projece" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="gasopen-api" target="1.6" />
       <module name="gasopenapi" target="1.5" />
       <module name="onlineretailers" target="1.6" />
+      <module name="Onlineretailers" target="1.6" />
+      <module name="orc_projece" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>
