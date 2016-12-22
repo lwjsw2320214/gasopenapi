@@ -11,5 +11,9 @@ public interface IUserMemberDao {
      * 根据用户名查找用户
      * */
     UserMember getUserForLoginName(UserMember userMember);
+    /**
+     * 添加用户
+     * */
+    Integer add(UserMember member);
 
 }

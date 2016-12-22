@@ -17,7 +17,7 @@ public class BaseEntity  implements Serializable {
     /**
      * 删除标识(0:正常，1：删除)
      * */
-    private String delFlag;
+    private String delFlag="0";
 
     public String getId() {
         return id;
@@ -46,4 +46,6 @@ public class BaseEntity  implements Serializable {
     public void  preInsert(){
         setId(IdGen.getuuid());
     }
+
+
 }

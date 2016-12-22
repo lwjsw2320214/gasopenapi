@@ -18,9 +18,9 @@ public class Cryptos {
     private static final String ENCODING = "UTF-8";
     private static  final  String CIPHERKEY="11111111";
 
-    public static String getSign(String actionName, long timestamp, String userToken, String nonceStr,String deviceId) {
+    public static String getSign(String timestamp, String userToken, String nonceStr,String deviceId) {
         try {
-            String encryptText = String.format("%1$s%2$s%3$s%4$s%5$s", actionName.toLowerCase(), deviceId.toLowerCase(), userToken.toLowerCase(), timestamp, nonceStr.toLowerCase());
+            String encryptText = String.format("%1$s%2$s%3$s%4$s",deviceId.toLowerCase(), userToken.toLowerCase(), timestamp, nonceStr.toLowerCase());
             return hmacSha1(encryptText, CIPHERKEY);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
