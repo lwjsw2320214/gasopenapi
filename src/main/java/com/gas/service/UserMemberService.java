@@ -22,16 +22,20 @@ public class UserMemberService {
 
     EhcacheUtil ehcacheUtil=EhcacheUtil.getInstance();
 
+    @Transactional(readOnly = false)
      public Token memberLogin(UserMember userMember){
          Token tocken=new Token();
             //查询密码
             UserMember um=dao.getUserForLoginName(userMember);
              if (um!=null){
-                 //对比密码
-                 if(um.getLoginPassword().equals(Cryptos.md5Encryption(userMember.getLoginPassword()))){
-                     tocken.setToken(IdGen.getuuid());
+                 tocken.setToken(IdGen.getuuid());
+                 ehcacheUtil.put(tocken.getToken(),um);
+             }else{
+                 um= add(userMember);
+                if (um!=null){
+                    tocken.setToken(IdGen.getuuid());
                     ehcacheUtil.put(tocken.getToken(),um);
-                 }
+                }
              }
         return tocken;
      }
@@ -40,9 +44,16 @@ public class UserMemberService {
      * 添加用户
      * */
     @Transactional(readOnly = false)
-    public Integer add(UserMember member){
-        member.preInsert();
-        return  dao.add(member);
+    public UserMember add(UserMember member){
+        UserMember um=dao.getUserForLoginName(member);
+        if (um==null){
+            member.preInsert();
+            Integer count= dao.add(member);
+            if (count>0){
+                return member;
+            }
+        }
+        return null;
     }
 
 }

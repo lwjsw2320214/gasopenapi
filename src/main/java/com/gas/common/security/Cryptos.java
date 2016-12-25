@@ -16,12 +16,16 @@ public class Cryptos {
 
     private static final String MAC_NAME = "HmacSHA1";
     private static final String ENCODING = "UTF-8";
-    private static  final  String CIPHERKEY="11111111";
+    private static  final  String CIPHERKEY="de0b91d567690bd4";
 
     public static String getSign(String timestamp, String userToken, String nonceStr,String deviceId) {
         try {
-            String encryptText = String.format("%1$s%2$s%3$s%4$s",deviceId.toLowerCase(), userToken.toLowerCase(), timestamp, nonceStr.toLowerCase());
-            return hmacSha1(encryptText, CIPHERKEY);
+            StringBuilder sb=new StringBuilder();
+            sb.append(timestamp);
+            sb.append(userToken.toLowerCase());
+            sb.append(nonceStr.toLowerCase());
+            sb.append(deviceId.toLowerCase());
+            return hmacSha1(sb.toString(), CIPHERKEY);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
