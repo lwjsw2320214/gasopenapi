@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gas.dao.IGasDao">
+
+    <sql id="fullNameColumns">
+        a.id AS "id",
+        a.gas_number AS "gasNumber",
+        a.user_id AS "userId",
+        a.remarks AS "remarks",
+        a.del_flag AS "delFlag"
+    </sql>
+    <sql id="leftJoin"/>
+
+    <select id="getAll" resultType="Gas">
+        SELECT
+        <include refid="fullNameColumns"/>
+        FROM  gas a
+        <include refid="leftJoin"/>
+        <where>
+          a.del_flag='0'
+          AND a.user_id=#{userId}
+        </where>
+    </select>
+
+    <select id="getGasCountForNumberAndUser" resultType="Integer">
+        SELECT
+          COUNT (a.id)
+        FROM  gas a
+        <include refid="leftJoin"/>
+        <where>
+            a.del_flag='0'
+            AND a.gas_number =#{gasNumber}
+            AND  a.user_id=#{userId}
+        </where>
+    </select>
+
+    <insert id="add">
+        INSERT  INTO  gas
+        (id,gas_number,user_id,remarks,del_flag) VALUES
+        (#{id},#{gasNumber},#{userId},#{remarks},#{delFlag})
+    </insert>
+
+</mapper>

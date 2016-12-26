@@ -29,7 +29,8 @@ import java.security.NoSuchAlgorithmException;
 public class UserController {
     @Autowired
     UserMemberService service;
-    private boolean state = true;
+
+    private boolean state = false;
 
     private static String DEVICE_VERSION = "DeviceVersion";//系统版本
     private static String ANDROID_ID = "AndroidId";//androidID
