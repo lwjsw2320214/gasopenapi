@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gas.dao.IOrderDao">
+    
+    <sql id="fullNameColumns">
+        a.id AS "id",
+        a.gas_number AS "gasNumber",
+        a.order_number AS "orderNumber",
+        a.first_scale AS "firstScale",
+        a.last_scale AS "lastScale",
+        a.total AS "total",
+        a.unit_price AS "unitPrice",
+        a.payment_amount AS "paymentAmount",
+        a.first_time AS "firstTime",
+        a.create_time AS "createTime",
+        a.payment_state AS "paymentState",
+        a.payment_type AS "paymentType",
+        a.payment_account AS "paymentAccount",
+        a.payment_time AS "paymentTime",
+        a.remarks AS "remarks",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <sql id="leftJoin">
+        LEFT JOIN gas g ON a.gas_number=g.gas_number
+        LEFT JOIN user_member u ON  g.user_id=u.id
+    </sql>
+
+    <select id="getAll" resultType="Order">
+        SELECT 
+        <include refid="fullNameColumns"/>
+        FROM  `order` a
+        <include refid="leftJoin"/>
+        <where>
+            a.del_flag='0'
+           AND g.del_flag='0'
+            AND u.del_flag='0'
+            AND  u.id=#{id}
+        </where>
+    </select>
+
+    <select id="getOrder" resultType="Order">
+        SELECT
+        <include refid="fullNameColumns"/>
+        FROM  `order` a
+        <include refid="leftJoin"/>
+        <where>
+            a.del_flag='0'
+            AND g.del_flag='0'
+            AND u.del_flag='0'
+            AND u.id=#{userid}
+            AND a.id=#{id}
+        </where>
+    </select>
+
+    <select id="getLastOrder" resultType="Order">
+        SELECT
+        <include refid="fullNameColumns"/>
+        FROM  `order` a
+        <where>
+          a.gas_number=#{gasNumber}
+        </where>
+        ORDER  BY  a.create_time DESC
+        LIMIT 0,1
+    </select>
+
+    <insert id="add">
+        INSERT   INTO `order`
+        (id,
+        gas_number,
+        order_number,
+        first_scale,
+        last_scale,
+        total,
+        unit_price,
+        payment_amount,
+        first_time,
+        create_time,
+        payment_state,
+        payment_type,
+        payment_account,
+        payment_time,
+        remarks,
+        del_flag) VALUES
+        (
+        #{id},
+        #{gasNumber},
+        #{orderNumber},
+        #{firstScale},
+        #{lastScale},
+        #{total},
+        #{unitPrice},
+        #{paymentAmount},
+        #{firstTime},
+        #{createTime},
+        #{paymentState},
+        #{paymentType},
+        #{paymentAccount},
+        #{paymentTime},
+        #{remarks},
+        #{delFlag}
+        )
+    </insert>
+    
+</mapper>
