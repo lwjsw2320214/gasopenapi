@@ -40,4 +40,8 @@
         (#{id},#{gasNumber},#{userId},#{remarks},#{delFlag})
     </insert>
 
+    <update id="delete">
+        UPDATE  gas SET del_flag='1' WHERE user_id=#{userId} AND id=#{id}
+    </update>
+
 </mapper>

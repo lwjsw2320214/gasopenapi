@@ -9,6 +9,7 @@ import com.gas.entity.SettingPrice;
 import com.gas.service.OrderService;
 import com.gas.service.SettingPriceService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,10 +44,11 @@ public class OrderController extends BaseController {
         }
         Integer pageNum=Integer.parseInt(page) ;
         PageHelper.startPage(pageNum,pageSize);
-        ContentList<Order> contentList=new ContentList<Order>();
         List<Order>list= service.getAll(userMember.getId());
-        contentList.setHasnext(true);
-        contentList.setList(list);
+        PageInfo<Order> pageInfo=new PageInfo<Order>(list);
+        ContentList<Order> contentList=new ContentList<Order>();
+        contentList.setHasnext(pageInfo.isHasNextPage());
+        contentList.setList(pageInfo.getList());
         result.setSuccess(true);
         result.setMessage("查询成功");
         result.setData(contentList);

@@ -17,6 +17,7 @@
         a.payment_type AS "paymentType",
         a.payment_account AS "paymentAccount",
         a.payment_time AS "paymentTime",
+        a.actual_payment AS "actualPayment",
         a.remarks AS "remarks",
         a.del_flag AS "delFlag"
     </sql>
@@ -51,6 +52,7 @@
             AND u.id=#{userid}
             AND a.id=#{id}
         </where>
+        ORDER  BY  a.create_time DESC
     </select>
 
     <select id="getLastOrder" resultType="Order">

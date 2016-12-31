@@ -22,6 +22,7 @@ public class Order extends BaseEntity {
     private Date createTime;
     private Integer paymentState;
     private Integer paymentType;
+    private BigDecimal actualPayment;
     private String paymentAccount;
     private Date paymentTime;
 
@@ -127,5 +128,13 @@ public class Order extends BaseEntity {
 
     public void setPaymentTime(Date paymentTime) {
         this.paymentTime = paymentTime;
+    }
+
+    public BigDecimal getActualPayment() {
+        return actualPayment;
+    }
+
+    public void setActualPayment(BigDecimal actualPayment) {
+        this.actualPayment = actualPayment;
     }
 }

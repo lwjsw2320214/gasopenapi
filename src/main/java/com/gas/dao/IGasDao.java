@@ -27,4 +27,9 @@ public interface IGasDao {
      * */
     Integer getGasCountForNumberAndUser(Gas gas);
 
+    /**
+     * 删除
+     * */
+    Integer delete(Gas gas);
+
 }

@@ -52,4 +52,12 @@ public class GasService {
             return 1;
         }
     }
+
+    /**
+     * 删除
+     * */
+    @Transactional(readOnly = false)
+    public Integer delete(Gas gas){
+        return  dao.delete(gas);
+    }
 }
