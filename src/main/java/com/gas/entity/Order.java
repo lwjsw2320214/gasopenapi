@@ -13,15 +13,15 @@ public class Order extends BaseEntity {
 
     private String gasNumber;
     private String orderNumber;
-    private Integer firstScale;
-    private Integer lastScale;
-    private Integer total;
+    private Integer firstScale=0;
+    private Integer lastScale=0;
+    private Integer total=0;
     private BigDecimal unitPrice;
     private BigDecimal paymentAmount;
     private Date firstTime;
     private Date createTime;
-    private Integer paymentState;
-    private Integer paymentType;
+    private Integer paymentState=0;
+    private Integer paymentType=0;
     private BigDecimal actualPayment;
     private String paymentAccount;
     private Date paymentTime;

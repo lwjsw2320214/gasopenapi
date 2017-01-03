@@ -49,6 +49,7 @@ public class GasService {
         try{
             return  dao.getGasCountForNumberAndUser(gas);
         } catch (Exception e){
+            e.printStackTrace();
             return 1;
         }
     }

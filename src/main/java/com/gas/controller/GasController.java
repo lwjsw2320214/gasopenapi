@@ -70,18 +70,20 @@ public class GasController extends BaseController {
         return  results;
     }
 
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public Object delete(Gas gas){
         Result results=new Result();
-        gas.setUserId(userMember.getId());
-        Integer count=service.delete(gas);
-        if (count>0){
-            results.setSuccess(true);
-            results.setMessage("删除成功！");
-        } else {
-            results.setSuccess(false);
-            results.setMessage("删除失败！");
+        if (state) {
+            gas.setUserId(userMember.getId());
+            Integer count = service.delete(gas);
+            if (count > 0) {
+                results.setSuccess(true);
+                results.setMessage("删除成功！");
+            } else {
+                results.setSuccess(false);
+                results.setMessage("删除失败！");
+            }
         }
         return  results;
     }

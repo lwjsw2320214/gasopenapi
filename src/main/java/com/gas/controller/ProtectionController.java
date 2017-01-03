@@ -1,5 +1,6 @@
 package com.gas.controller;
 
+import com.gas.common.base.BaseController;
 import com.gas.entity.Protection;
 import com.gas.entity.Result;
 import com.gas.service.ProtectionService;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/protection")
-public class ProtectionController {
+public class ProtectionController extends BaseController {
 
     @Autowired
     ProtectionService service;
@@ -24,10 +25,12 @@ public class ProtectionController {
     @ResponseBody
     public Object index(){
         Result result=new Result();
-        List<Protection> list=service.getAll();
-        result.setSuccess(true);
-        result.setMessage("获取数据成功！");
-        result.setData(list);
+        if (state) {
+            List<Protection> list = service.getAll();
+            result.setSuccess(true);
+            result.setMessage("获取数据成功！");
+            result.setData(list);
+        }
         return  result;
     }
 
