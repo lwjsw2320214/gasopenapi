@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * Created by 刘维军 on 2016/12/26.
@@ -46,6 +47,15 @@ public class BaseController {
                 if (!StringUtils.isBlank(SIGN)) {
                     String sign = Cryptos.getSign(TIMESTAMP, USER_TOKEN+"", Nonce, ANDROID_ID);
                     if (sign.equals(SIGN)) {
+                        Integer v=Integer.parseInt(MEB_VERSION);
+                        if (v<=8){
+                            //提示时间
+                            Date dt=  DateUtils.parseDate("2017-02-01");
+                            if (!DateUtils.compareDate(dt)){
+                                //获取用户失败返回403
+                                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                            }
+                        }
                         //判断令牌是否能获取到用户
                         Object object=ehcacheUtil.get(USER_TOKEN);
                        if (object!=null){
@@ -56,19 +66,19 @@ public class BaseController {
                            response.sendError(HttpServletResponse.SC_FORBIDDEN);
                        }
                     } else {
-                        //签名验证不合格请求无效
+                        //签名验证不合格请求无效400
                         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
                     }
                 } else {
-                    //签名对比如果无效则禁止访问
+                    //签名对比如果无效则禁止访问403
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 }
             } else {
-                //时间戳对比错误请求无效
+                //时间戳对比错误请求无效400
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
         } else {
-            //时间戳为空禁止访问
+            //时间戳为空禁止访问403
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
         return state;

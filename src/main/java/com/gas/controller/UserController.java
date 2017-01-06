@@ -13,13 +13,14 @@ import com.gas.service.UserMemberService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * Created by GC on 2016/12/19.
@@ -157,6 +158,22 @@ public class UserController {
 
         }
         return result;
+    }
+
+    @RequestMapping(value = "/config", method = RequestMethod.GET)
+    @ResponseBody
+    public Object config(){
+        Result result=new Result();
+        Integer v=Integer.parseInt(MEB_VERSION);
+        if (v<=8){
+            //提示时间
+           Date dt=  DateUtils.parseDate("2017-02-01");
+           if (!DateUtils.compareDate(dt)){
+                result.setSuccess(true);
+               result.setMessage("程序链接超时，请联系开发厂商");
+           }
+        }
+        return  result;
     }
 
 }
