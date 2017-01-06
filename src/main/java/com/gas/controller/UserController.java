@@ -1,5 +1,6 @@
 package com.gas.controller;
 
+import com.gas.common.ConfigProperties;
 import com.gas.common.JackSon;
 import com.gas.common.LoginVerification;
 import com.gas.common.SmsEnum;
@@ -164,13 +165,17 @@ public class UserController {
     @ResponseBody
     public Object config(){
         Result result=new Result();
+        result.setSuccess(true);
         Integer v=Integer.parseInt(MEB_VERSION);
+        String dts= ConfigProperties.getConfig("expirationTime");
         if (v<=8){
             //提示时间
-           Date dt=  DateUtils.parseDate("2017-02-01");
+           Date dt=  DateUtils.parseDate(dts);
            if (!DateUtils.compareDate(dt)){
-                result.setSuccess(true);
+               result.setData(true);
                result.setMessage("程序链接超时，请联系开发厂商");
+           }else{
+               result.setData(false);
            }
         }
         return  result;
