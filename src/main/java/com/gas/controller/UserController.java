@@ -14,7 +14,6 @@ import com.gas.service.UserMemberService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,7 +42,7 @@ public class UserController {
     private static String SIGN = "Sign";//签名
     private static String Nonce = "Nonce";//随机数
 
-    @ModelAttribute
+    //@ModelAttribute
     public boolean get(HttpServletRequest request, HttpServletResponse response) throws Exception {
         DEVICE_VERSION = request.getHeader("DeviceVersion");
         ANDROID_ID = request.getHeader("AndroidId");
@@ -164,6 +163,7 @@ public class UserController {
     @RequestMapping(value = "/config", method = RequestMethod.GET)
     @ResponseBody
     public Object config(){
+
         Result result=new Result();
         result.setSuccess(true);
         Integer v=Integer.parseInt(MEB_VERSION);
@@ -180,5 +180,6 @@ public class UserController {
         }
         return  result;
     }
+
 
 }
