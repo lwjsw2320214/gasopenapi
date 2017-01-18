@@ -16,7 +16,7 @@ public class Cryptos {
 
     private static final String MAC_NAME = "HmacSHA1";
     private static final String ENCODING = "UTF-8";
-    private static  final  String CIPHERKEY="";
+    private static  final  String CIPHERKEY="de0b91d567690bd4";
 
     public static String getSign(String timestamp, String userToken, String nonceStr,String deviceId) {
         try {

@@ -50,7 +50,8 @@ public class BaseController {
                         Integer v=Integer.parseInt(MEB_VERSION);
                         if (v<=8){
                             //提示时间
-                            Date dt=  DateUtils.parseDate("2017-02-01");
+                            String dts= ConfigProperties.getConfig("expirationTime");
+                            Date dt=  DateUtils.parseDate(dts);
                             if (!DateUtils.compareDate(dt)){
                                 //获取用户失败返回403
                                 response.sendError(HttpServletResponse.SC_FORBIDDEN);

@@ -14,6 +14,7 @@ import com.gas.service.UserMemberService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +43,7 @@ public class UserController {
     private static String SIGN = "Sign";//签名
     private static String Nonce = "Nonce";//随机数
 
-    //@ModelAttribute
+    @ModelAttribute
     public boolean get(HttpServletRequest request, HttpServletResponse response) throws Exception {
         DEVICE_VERSION = request.getHeader("DeviceVersion");
         ANDROID_ID = request.getHeader("AndroidId");
@@ -131,7 +132,7 @@ public class UserController {
             String address = "https://webapi.sms.mob.com/sms/verify";
             LoginVerification client = null;
             client = new LoginVerification(address);
-            client.addParam("appkey", "").addParam("phone", userMember.getLoginName())
+            client.addParam("appkey", "1a3a9e1654b6a").addParam("phone", userMember.getLoginName())
                     .addParam("zone", "86").addParam("code", userMember.getLoginPassword());
             client.addRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             client.addRequestProperty("Accept", "application/json");
@@ -168,7 +169,6 @@ public class UserController {
         result.setSuccess(true);
         Integer v=Integer.parseInt(MEB_VERSION);
         String dts= ConfigProperties.getConfig("expirationTime");
-        if (v<=8){
             //提示时间
            Date dt=  DateUtils.parseDate(dts);
            if (!DateUtils.compareDate(dt)){
@@ -177,7 +177,6 @@ public class UserController {
            }else{
                result.setData(false);
            }
-        }
         return  result;
     }
 

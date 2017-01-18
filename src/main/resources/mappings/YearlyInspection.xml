@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gas.dao.IYearlyInspectionDao">
+
+    <sql id="fullNameColumns">
+        a.id AS "id",
+        a.year AS "year",
+        a.gas_number AS "gasNumber",
+        a.gas_img AS "gasImg",
+        a.create_time AS "createTime",
+        a.remarks AS "remarks",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <sql id="joinTable">
+    </sql>
+
+
+    <select id="getCountForYear" resultType="Integer">
+        SELECT COUNT(id) FROM yearly_inspection
+        WHERE gas_number=#{gasNumber} AND year=#{year}
+    </select>
+
+    <insert id="add">
+        INSERT  INTO  yearly_inspection
+         (id,year,gas_number,gas_img,create_time,remarks,del_flag)
+        VALUES
+        (#{id},#{year},#{gasNumber},#{gasImg},#{createTime},#{remarks},#{delFlag})
+    </insert>
+
+    <update id="update">
+        UPDATE yearly_inspection SET
+        gas_img=#{gasImg},create_time=#{createTime}
+        WHERE  gas_number=#{gasNumber} AND year=#{year}
+    </update>
+
+</mapper>
