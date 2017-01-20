@@ -175,7 +175,7 @@ public class UserController {
            Date dt=  DateUtils.parseDate(dts);
            if (!DateUtils.compareDate(dt)){
                result.setData(true);
-               result.setMessage("清登录");
+               result.setMessage("应用连接超时，请找软件厂商");
            }else{
                result.setData(false);
                result.setMessage("");
