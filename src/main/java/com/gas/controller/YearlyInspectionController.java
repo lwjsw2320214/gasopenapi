@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.imageio.ImageIO;
@@ -33,7 +34,8 @@ public class YearlyInspectionController extends BaseController {
 
     private static final String filePaht= ConfigProperties.getConfig("filePath");
 
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
     public Object add(String gasNumber,@RequestParam("Filedata")CommonsMultipartFile file){
         Integer count=0;
         Result result=new Result();

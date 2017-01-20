@@ -41,22 +41,20 @@ public class BaseController {
         Nonce = request.getHeader("Nonce");
         if (!StringUtils.isBlank(TIMESTAMP)) {
             //对比时间戳
-            Boolean b = DateUtils.compareDate(DateUtils.addDateSecond(DateUtils.stampToDate(TIMESTAMP), 3));
+            Boolean b = DateUtils.compareDate(DateUtils.addDateSecond(DateUtils.stampToDate(TIMESTAMP), 60));
             if (b) {
                 //对比签名
                 if (!StringUtils.isBlank(SIGN)) {
                     String sign = Cryptos.getSign(TIMESTAMP, USER_TOKEN+"", Nonce, ANDROID_ID);
                     if (sign.equals(SIGN)) {
                         Integer v=Integer.parseInt(MEB_VERSION);
-                        if (v<=8){
                             //提示时间
                             String dts= ConfigProperties.getConfig("expirationTime");
                             Date dt=  DateUtils.parseDate(dts);
                             if (!DateUtils.compareDate(dt)){
                                 //获取用户失败返回403
                                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                            }
-                        }
+                            }else {
                         //判断令牌是否能获取到用户
                         Object object=ehcacheUtil.get(USER_TOKEN);
                        if (object!=null){
@@ -65,7 +63,7 @@ public class BaseController {
                        }else{
                             //获取用户失败返回403
                            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                       }
+                       }}
                     } else {
                         //签名验证不合格请求无效400
                         response.sendError(HttpServletResponse.SC_BAD_REQUEST);

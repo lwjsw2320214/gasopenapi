@@ -55,7 +55,7 @@ public class UserController {
         Nonce = request.getHeader("Nonce");
         if (!StringUtils.isBlank(TIMESTAMP)) {
             //对比时间戳
-            Boolean b = DateUtils.compareDate(DateUtils.addDateSecond(DateUtils.stampToDate(TIMESTAMP), 3));
+            Boolean b = DateUtils.compareDate(DateUtils.addDateSecond(DateUtils.stampToDate(TIMESTAMP), 60));
             if (b) {
                 //对比签名
                 if (!StringUtils.isBlank(SIGN)) {
@@ -64,6 +64,7 @@ public class UserController {
                         state = true;
                     } else {
                         //签名验证不合格请求无效
+                        System.out.println("签名验证不合格请求无效");
                         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
                     }
                 } else {
@@ -71,6 +72,7 @@ public class UserController {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 }
             } else {
+                 System.out.println("时间戳无效");
                 //时间戳对比错误请求无效
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
@@ -173,9 +175,10 @@ public class UserController {
            Date dt=  DateUtils.parseDate(dts);
            if (!DateUtils.compareDate(dt)){
                result.setData(true);
-               result.setMessage("程序链接超时，请联系开发厂商");
+               result.setMessage("清登录");
            }else{
                result.setData(false);
+               result.setMessage("");
            }
         return  result;
     }
